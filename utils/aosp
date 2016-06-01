@@ -19,6 +19,8 @@ AOSP_VOL_AOSP=${AOSP_VOL_AOSP%/} # Trim trailing slash if needed
 AOSP_VOL_CCACHE=${AOSP_VOL_CCACHE:-$AOSP_VOL/ccache}
 AOSP_VOL_CCACHE=${AOSP_VOL_CCACHE%/} # Trim trailing slash if needed
 
+AOSP_LUNCH_VARIANT=${AOSP_LUNCH_VARIANT:-"aosp_bullhead-userdebug"}
+
 # Convenience function
 function aosp_create_dir_if_needed {
   directory=$1
@@ -38,7 +40,7 @@ aosp_create_dir_if_needed $AOSP_VOL_AOSP
 aosp_create_dir_if_needed $AOSP_VOL_CCACHE
 
 # Set uid and gid to match host current user
-AOSP_HOST_ID_ARGS="-e USER_ID=$(id -u) -e GROUP_ID=$(id -g)"
+AOSP_HOST_ID_ARGS="-e USER_ID=$(id -u) -e GROUP_ID=$(id -g) -e AOSP_LUNCH_VARIANT=$AOSP_LUNCH_VARIANT"
 
 if [ -n "$SSH_AUTH_SOCK" ]; then
     SSH_AUTH_ARGS="-v $SSH_AUTH_SOCK:/tmp/ssh_auth -e SSH_AUTH_SOCK=/tmp/ssh_auth"

@@ -51,7 +51,7 @@ COPY ssh_config /root/.ssh/config
 VOLUME ["/tmp/ccache", "/aosp"]
 
 # Improve rebuild performance by enabling compiler cache
-ENV USE_CCACHE 1
+ENV USE_CCACHE 0
 ENV CCACHE_DIR /tmp/ccache
 
 # Work in the build directory, repo is expected to be init'd here

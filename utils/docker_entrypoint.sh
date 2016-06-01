@@ -16,6 +16,7 @@ set -e
 # Reasonable defaults if no USER_ID/GROUP_ID environment variables are set.
 if [ -z ${USER_ID+x} ]; then USER_ID=1000; fi
 if [ -z ${GROUP_ID+x} ]; then GROUP_ID=1000; fi
+  if [ -z ${AOSP_LUNCH_VARIANT+x} ]; then AOSP_LUNCH_VARIANT="aosp_bullhead-userdebug"; fi
 
 msg="docker_entrypoint: Creating user UID/GID [$USER_ID/$GROUP_ID]" && echo $msg
 groupadd -g $GROUP_ID -r aosp && \
@@ -34,6 +35,8 @@ msg="docker_entrypoint: Creating /tmp/ccache and /asop directory" && echo $msg
 mkdir -p /tmp/ccache /aosp
 chown aosp:aosp /tmp/ccache /aosp
 echo "$msg - done"
+
+echo "cd /aosp; source build/envsetup.sh; lunch $AOSP_LUNCH_VARIANT" >> /home/aosp/.bashrc
 
 echo ""
 
